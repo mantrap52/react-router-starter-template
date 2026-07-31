@@ -16,6 +16,13 @@ const requestHandler = createRequestHandler(
 
 export default {
 	fetch(request, env, ctx) {
+		const url = new URL(request.url);
+
+		if (url.hostname === "dakshinglobal.com") {
+			url.hostname = "www.dakshinglobal.com";
+			return Response.redirect(url.toString(), 301);
+		}
+
 		return requestHandler(request, {
 			cloudflare: { env, ctx },
 		});
